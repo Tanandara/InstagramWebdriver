@@ -30,7 +30,7 @@ namespace InstagramData.Console
                 string bnk48 = JsonConvert.SerializeObject(instagramProfiles[0]);
                 //string cherprang = JsonConvert.SerializeObject(instagramProfiles[1]);
 
-                File.AppendAllText("bnk48.json", bnk48);
+                File.AppendAllText("bnk48.json", bnk48,Encoding.UTF8);
                 //File.AppendAllText("cherprang.json", cherprang);
             }
             catch (Exception ex)
