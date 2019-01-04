@@ -257,7 +257,15 @@ namespace InstagramData.Core
 
         private void LoadComments()
         {
-            var buttonLoadMoreComment = Driver.FindElement(By.CssSelector("#react-root > section > main > div > div > article > div:nth-of-type(2) > div:nth-of-type(1) > ul > li:nth-child(2) > button"));
+            IWebElement buttonLoadMoreComment;
+            try
+            {
+                buttonLoadMoreComment = Driver.FindElement(By.CssSelector("#react-root > section > main > div > div > article > div:nth-of-type(2) > div:nth-of-type(1) > ul > li:nth-child(2) > button"));
+            }
+            catch (Exception)
+            {
+                return;
+            }
 
             for (;;)
             {
@@ -266,10 +274,9 @@ namespace InstagramData.Core
                     buttonLoadMoreComment.Click();
                     Thread.Sleep(1000);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     break;
-                    throw ex;
                 }
             }
         }
