@@ -10,7 +10,7 @@ namespace InstagramData.Core.Models
     {
         public string MediaURL { get; set; }
         public List<string> Images { get; set; }
-        public string PostDetail { get; set; }
+        public string Caption { get; set; }
         public List<Tag> Tags { get; set; }
         public List<ReferenceProfile> Refs { get; set; }
         public List<Comment> Comments { get; set; }

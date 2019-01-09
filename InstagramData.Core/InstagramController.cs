@@ -291,7 +291,7 @@ namespace InstagramData.Core
                 var mediaTags = mediaTagAndReferrence.Where(m => m.GetAttribute("href").Contains("/explore/tags")).ToList();
                 var referrenceTags = mediaTagAndReferrence.Where(m => !m.GetAttribute("href").Contains("/explore/tags")).ToList();
 
-                post.PostDetail = mediaText;
+                post.Caption = mediaText;
 
                 foreach (var m in mediaTags)
                 {
