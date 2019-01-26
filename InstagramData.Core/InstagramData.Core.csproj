@@ -45,6 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSVExport.cs" />
     <Compile Include="InstagramController.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Follower.cs" />

@@ -23,7 +23,7 @@ namespace InstagramData.Console
 
                 var userLogin = new User { Username = "", Password = "" };
 
-                var instagramController = new InstagramController(userLogin, instagramProfiles,1);
+                var instagramController = new InstagramController(userLogin, instagramProfiles,0);
 
                 instagramController.Run();
 
@@ -32,6 +32,12 @@ namespace InstagramData.Console
 
                 File.AppendAllText("bnk48.json", bnk48,Encoding.UTF8);
                 //File.AppendAllText("cherprang.json", cherprang);
+
+                var csvExport = new CSVExport(instagramProfiles[0]);
+                csvExport.CreateGenaral();
+                csvExport.CreateFollowing();
+                csvExport.CreateMedia();
+
             }
             catch (Exception ex)
             {
