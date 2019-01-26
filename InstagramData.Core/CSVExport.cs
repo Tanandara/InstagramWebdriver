@@ -47,7 +47,7 @@ public class CSVExport
             var mediaTags = media.Tags.Select(t => t.TagId).ToList();
             var mediaTagsAfterJoinPipe = string.Join("|", mediaTags);
 
-            var mediaRefs = media.Tags.Select(t => t.TagId).ToList();
+            var mediaRefs = media.Refs.Select(t => t.RefId).ToList();
             var mediaRefsAfterJoinPipe = string.Join("|", mediaRefs);
 
             foreach (var comment in media.Comments)
@@ -55,7 +55,7 @@ public class CSVExport
                 var commentTags = comment.Tags.Select(t => t.TagId).ToList();
                 var commentTagsAfterJoinPipe = string.Join("|", commentTags);
 
-                var commentRefs = comment.Tags.Select(t => t.TagId).ToList();
+                var commentRefs = comment.Refs.Select(t => t.RefId).ToList();
                 var commentRefsAfterJoinPipe = string.Join("|", commentRefs);
 
                 content = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
