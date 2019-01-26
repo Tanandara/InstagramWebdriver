@@ -1,4 +1,5 @@
-﻿using InstagramData.Core.Models;
+﻿using InstagramData.Core;
+using InstagramData.Core.Models;
 using System;
 using System.IO;
 using System.Linq;
@@ -60,10 +61,10 @@ public class CSVExport
                 content = string.Format("{0},{1},{2},{3},{4},{5},{6},{7}",
                     _instagramProfile.Name,
                     media.MediaURL,
-                    media.Caption?.Replace(System.Environment.NewLine, "replacement text").Replace("\"", "").Replace(",", ""),
+                    media.Caption?.ReplaceCSVRule(),
                     mediaTagsAfterJoinPipe,
                     mediaRefsAfterJoinPipe,
-                    comment.Text?.Replace("\"", "").Replace(",", ""),
+                    comment.Text?.ReplaceCSVRule(),
                     commentTagsAfterJoinPipe,
                     commentRefsAfterJoinPipe);
 
@@ -77,3 +78,4 @@ public class CSVExport
 
     
 }
+
