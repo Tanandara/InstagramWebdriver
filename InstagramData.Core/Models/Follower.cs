@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace InstagramData.Core.Models
 {
-    class Follower
+    public class Follower
     {
+        public string Name { get; set; }
+        public string URL { get; set; }
     }
 }
