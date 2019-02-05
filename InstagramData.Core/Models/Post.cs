@@ -12,6 +12,7 @@ namespace InstagramData.Core.Models
         public List<string> Images { get; set; }
         public string Caption { get; set; }
         public List<Tag> Tags { get; set; }
+        public List<string> PictureTags { get; set; }
         public List<ReferenceProfile> Refs { get; set; }
         public List<Comment> Comments { get; set; }
         public int CommentCount { get; set; }
@@ -22,6 +23,7 @@ namespace InstagramData.Core.Models
             this.Tags = new List<Tag>();
             this.Comments = new List<Comment>();
             this.Refs = new List<ReferenceProfile>();
+            this.PictureTags = new List<string>();
         }
 
     }
