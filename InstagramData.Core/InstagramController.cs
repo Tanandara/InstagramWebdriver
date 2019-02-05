@@ -78,6 +78,8 @@ namespace InstagramData.Core
                 igProfile.FollowerCount = int.Parse(followerCount.Replace(",", ""));
 
 
+
+                #region Following
                 var followingTag = selectedAllA.Where(a => a.GetAttribute("href").Contains("/following")).FirstOrDefault();
                 followingTag.Click();
                 Thread.Sleep(2000);
@@ -145,6 +147,7 @@ namespace InstagramData.Core
                 buttonCloseFollowing.Click();
 
                 Thread.Sleep(2000);
+                #endregion
             }
             catch (Exception ex)
             {
@@ -191,13 +194,67 @@ namespace InstagramData.Core
 
                 GetImages(post);
 
-                GetPostDetail(post);
+                GetPictureTags(post);
+                
+                GetCaption(post);
 
                 LoadComments();
 
                 GetComments(post);
             }
 
+        }
+
+        private void GetPictureTags(Post post)
+        {
+            try
+            {
+                try
+                {
+                    var buttonTags = Driver.FindElement(By.CssSelector("._9AhH0"));
+                    buttonTags.Click();
+                    Thread.Sleep(1000);
+                }
+                catch {}
+
+            FindTags:
+
+                try
+                {
+                    var tagsElements = Driver.FindElements(By.CssSelector(".eg3Fv"));
+                    if (tagsElements.Any())
+                    {
+                        foreach (var element in tagsElements)
+                        {
+                            if (string.IsNullOrEmpty(element.Text)) continue;
+
+                            post.PictureTags.Add(element.Text);
+                        }
+                    }
+                }
+                catch { }
+               
+
+
+                try
+                {
+                    var buttonRight = Driver.FindElementByClassName("coreSpriteRightChevron");
+
+                    buttonRight.Click();
+                    Thread.Sleep(1000);
+
+                    goto FindTags;
+                }
+                catch { }
+                
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void GetComments(Post post)
@@ -281,7 +338,7 @@ namespace InstagramData.Core
             }
         }
 
-        private void GetPostDetail(Post post)
+        private void GetCaption(Post post)
         {
             try
             {
