@@ -17,7 +17,9 @@ namespace InstagramData.Console
             try
             {
                 var instagramProfiles = new List<InstagramProfile>() {
-                new InstagramProfile("https://www.instagram.com/bnk48/","BNK48"),
+
+                new InstagramProfile("https://www.instagram.com/aofpongsak/","aof"),
+                //new InstagramProfile("https://www.instagram.com/bnk48/","BNK48"),
                 //new InstagramProfile("https://www.instagram.com/cherprang.bnk48official/","cherprang"),
             };
 
@@ -27,10 +29,11 @@ namespace InstagramData.Console
 
                 instagramController.Run();
 
-                string bnk48 = JsonConvert.SerializeObject(instagramProfiles[0]);
+                string aof = JsonConvert.SerializeObject(instagramProfiles[0]);
+                //string bnk48 = JsonConvert.SerializeObject(instagramProfiles[0]);
                 //string cherprang = JsonConvert.SerializeObject(instagramProfiles[1]);
 
-                File.AppendAllText("bnk48.json", bnk48,Encoding.UTF8);
+                File.AppendAllText("aof.json", aof, Encoding.UTF8);
                 //File.AppendAllText("cherprang.json", cherprang);
 
                 var csvExport = new CSVExport(instagramProfiles[0]);
