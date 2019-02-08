@@ -36,10 +36,10 @@ namespace InstagramData.Console
                 File.AppendAllText("aof.json", aof, Encoding.UTF8);
                 //File.AppendAllText("cherprang.json", cherprang);
 
-                var csvExport = new CSVExport(instagramProfiles[0]);
-                csvExport.CreateGenaral();
-                csvExport.CreateFollowing();
-                csvExport.CreateMedia();
+                //var csvExport = new CSVExport(instagramProfiles[0]);
+                //csvExport.CreateGenaral();
+                //csvExport.CreateFollowing();
+                //csvExport.CreateMedia();
 
             }
             catch (Exception ex)
