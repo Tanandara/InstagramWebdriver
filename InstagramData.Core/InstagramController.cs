@@ -78,6 +78,76 @@ namespace InstagramData.Core
                 igProfile.FollowerCount = int.Parse(followerCount.Replace(",", ""));
 
 
+                #region Follower
+                followersTag.Click();
+                Thread.Sleep(2000);
+
+                //.isgrP
+                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 100)");
+                Thread.Sleep(500);
+                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 200)");
+                Thread.Sleep(500);
+                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 300)");
+                Thread.Sleep(500);
+                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 400)");
+                Thread.Sleep(500);
+                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 500)");
+                Thread.Sleep(500);
+                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 600)");
+                Thread.Sleep(500);
+                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 700)");
+                Thread.Sleep(500);
+
+                long flagFollower = 0;
+                for (;;)
+                {
+                    ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, document.querySelector('.isgrP').scrollHeight )");
+                    Thread.Sleep(100);
+                    var currentHeight = (long)((IJavaScriptExecutor)Driver).ExecuteScript("return document.querySelector('.isgrP').scrollHeight;");
+
+                    if (flagFollower == currentHeight)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        flagFollower = currentHeight;
+                    }
+
+                    Thread.Sleep(1000);
+                }
+
+
+                var followersLinks = Driver.FindElements(By.CssSelector("li div a"));
+                var followers = followersLinks.Where(f => f.GetAttribute("title") != "").ToList();
+
+                var followersCount = followers.Count();
+                igProfile.FollowingCount = followersCount;
+                Console.WriteLine("Follower: {0}", followersCount);
+
+
+                foreach (var follower in followers)
+                {
+                    var igFollower = new Follower
+                    {
+                        Name = follower.GetAttribute("title"),
+                        URL = follower.GetAttribute("href")
+                    };
+
+                    igProfile.Followers.Add(igFollower);
+
+                    Console.WriteLine("{0} - {1}", follower.GetAttribute("title"), follower.GetAttribute("href"));
+                }
+
+                Thread.Sleep(2000);
+
+                var buttonCloseFollower = Driver.FindElement(By.CssSelector(".WaOAr > button"));
+                buttonCloseFollower.Click();
+
+                Thread.Sleep(2000);
+                #endregion
+
+                Thread.Sleep(2000);
 
                 #region Following
                 var followingTag = selectedAllA.Where(a => a.GetAttribute("href").Contains("/following")).FirstOrDefault();
@@ -100,20 +170,20 @@ namespace InstagramData.Core
                 ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 700)");
                 Thread.Sleep(500);
 
-                long flag = 0;
+                long flagFollowing = 0;
                 for (;;)
                 {
                     ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, document.querySelector('.isgrP').scrollHeight )");
                     Thread.Sleep(100);
                     var currentHeight = (long)((IJavaScriptExecutor)Driver).ExecuteScript("return document.querySelector('.isgrP').scrollHeight;");
 
-                    if (flag == currentHeight)
+                    if (flagFollowing == currentHeight)
                     {
                         break;
                     }
                     else
                     {
-                        flag = currentHeight;
+                        flagFollowing = currentHeight;
                     }
 
                     Thread.Sleep(500);
@@ -195,14 +265,38 @@ namespace InstagramData.Core
                 GetImages(post);
 
                 GetPictureTags(post);
-                
+
+                GetPostDate(post);
+
                 GetCaption(post);
 
-                LoadComments();
+                //LoadComments();
 
-                GetComments(post);
+                //GetComments(post);
             }
 
+        }
+
+        private void GetPostDate(Post post)
+        {
+            try
+            {
+                try
+                {
+                    var timeElement = Driver.FindElement(By.CssSelector("._1o9PC.Nzb55"));
+                    var dateString = timeElement.GetAttribute("title");
+                    var dateTime = timeElement.GetAttribute("datetime");
+
+                    var postDate = DateTime.Parse(dateTime);
+
+                    post.PostDate = postDate;
+                }
+                catch { }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void GetPictureTags(Post post)
@@ -215,7 +309,7 @@ namespace InstagramData.Core
                     buttonTags.Click();
                     Thread.Sleep(1000);
                 }
-                catch {}
+                catch { }
 
             FindTags:
 
@@ -233,7 +327,7 @@ namespace InstagramData.Core
                     }
                 }
                 catch { }
-               
+
 
 
                 try
@@ -246,7 +340,7 @@ namespace InstagramData.Core
                     goto FindTags;
                 }
                 catch { }
-                
+
 
 
 
