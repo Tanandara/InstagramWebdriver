@@ -16,6 +16,7 @@ namespace InstagramData.Core.Models
         public List<ReferenceProfile> Refs { get; set; }
         public List<Comment> Comments { get; set; }
         public int CommentCount { get; set; }
+        public DateTime PostDate { get; set; }
 
         public Post()
         {
