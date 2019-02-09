@@ -401,7 +401,7 @@ namespace InstagramData.Core
                         Name = Name,
                         Refs = refsComment,
                         Tags = tagsComment,
-                        Text = comment.Text
+                        Text = spanComment.Text
                     });
                 }
             }
