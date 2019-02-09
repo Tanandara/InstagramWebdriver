@@ -79,75 +79,74 @@ namespace InstagramData.Core
 
 
                 #region Follower
-                followersTag.Click();
-                Thread.Sleep(2000);
+                //followersTag.Click();
+                //Thread.Sleep(2000);
 
-                //.isgrP
-                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 100)");
-                Thread.Sleep(500);
-                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 200)");
-                Thread.Sleep(500);
-                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 300)");
-                Thread.Sleep(500);
-                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 400)");
-                Thread.Sleep(500);
-                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 500)");
-                Thread.Sleep(500);
-                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 600)");
-                Thread.Sleep(500);
-                ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 700)");
-                Thread.Sleep(500);
+                ////.isgrP
+                //((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 100)");
+                //Thread.Sleep(500);
+                //((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 200)");
+                //Thread.Sleep(500);
+                //((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 300)");
+                //Thread.Sleep(500);
+                //((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 400)");
+                //Thread.Sleep(500);
+                //((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 500)");
+                //Thread.Sleep(500);
+                //((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 600)");
+                //Thread.Sleep(500);
+                //((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, 700)");
+                //Thread.Sleep(500);
 
-                long flagFollower = 0;
-                for (;;)
-                {
-                    ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, document.querySelector('.isgrP').scrollHeight )");
-                    Thread.Sleep(100);
-                    var currentHeight = (long)((IJavaScriptExecutor)Driver).ExecuteScript("return document.querySelector('.isgrP').scrollHeight;");
+                //long flagFollower = 0;
+                //for (;;)
+                //{
+                //    ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, document.querySelector('.isgrP').scrollHeight )");
+                //    Thread.Sleep(100);
+                //    var currentHeight = (long)((IJavaScriptExecutor)Driver).ExecuteScript("return document.querySelector('.isgrP').scrollHeight;");
 
-                    if (flagFollower == currentHeight)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        flagFollower = currentHeight;
-                    }
+                //    if (flagFollower == currentHeight)
+                //    {
+                //        break;
+                //    }
+                //    else
+                //    {
+                //        flagFollower = currentHeight;
+                //    }
 
-                    Thread.Sleep(1000);
-                }
-
-
-                var followersLinks = Driver.FindElements(By.CssSelector("li div a"));
-                var followers = followersLinks.Where(f => f.GetAttribute("title") != "").ToList();
-
-                var followersCount = followers.Count();
-                igProfile.FollowingCount = followersCount;
-                Console.WriteLine("Follower: {0}", followersCount);
+                //    Thread.Sleep(1000);
+                //}
 
 
-                foreach (var follower in followers)
-                {
-                    var igFollower = new Follower
-                    {
-                        Name = follower.GetAttribute("title"),
-                        URL = follower.GetAttribute("href")
-                    };
+                //var followersLinks = Driver.FindElements(By.CssSelector("li div a"));
+                //var followers = followersLinks.Where(f => f.GetAttribute("title") != "").ToList();
 
-                    igProfile.Followers.Add(igFollower);
+                //var followersCount = followers.Count();
+                //igProfile.FollowingCount = followersCount;
+                //Console.WriteLine("Follower: {0}", followersCount);
 
-                    Console.WriteLine("{0} - {1}", follower.GetAttribute("title"), follower.GetAttribute("href"));
-                }
 
-                Thread.Sleep(2000);
+                //foreach (var follower in followers)
+                //{
+                //    var igFollower = new Follower
+                //    {
+                //        Name = follower.GetAttribute("title"),
+                //        URL = follower.GetAttribute("href")
+                //    };
 
-                var buttonCloseFollower = Driver.FindElement(By.CssSelector(".WaOAr > button"));
-                buttonCloseFollower.Click();
+                //    igProfile.Followers.Add(igFollower);
 
-                Thread.Sleep(2000);
+                //    Console.WriteLine("{0} - {1}", follower.GetAttribute("title"), follower.GetAttribute("href"));
+                //}
+
+                //Thread.Sleep(2000);
+
+                //var buttonCloseFollower = Driver.FindElement(By.CssSelector(".WaOAr > button"));
+                //buttonCloseFollower.Click();
+
+                //Thread.Sleep(2000);
                 #endregion
 
-                Thread.Sleep(2000);
 
                 #region Following
                 var followingTag = selectedAllA.Where(a => a.GetAttribute("href").Contains("/following")).FirstOrDefault();
@@ -270,9 +269,9 @@ namespace InstagramData.Core
 
                 GetCaption(post);
 
-                //LoadComments();
+                LoadComments();
 
-                //GetComments(post);
+                GetComments(post);
             }
 
         }
@@ -356,7 +355,8 @@ namespace InstagramData.Core
             try
             {
                 //var commentSection = Driver.FindElements(By.CssSelector("#react-root > section > main > div > div > article > div:nth-of-type(2) > div:nth-of-type(1) > ul > li > div > div > div > div > span"));
-                var commentSection = Driver.FindElements(By.CssSelector("#react-root > section > main > div > div > article > div:nth-of-type(2) > div:nth-of-type(1) > ul > li > div > div > div span"));
+                //var commentSection = Driver.FindElements(By.CssSelector("#react-root > section > main > div > div > article > div:nth-of-type(2) > div:nth-of-type(1) > ul > li > div > div > div span"));
+                var commentSection = Driver.FindElements(By.CssSelector(".C4VMK"));
                 var comments = commentSection.Skip(1).ToList();
                 var commentCount = comments.Count();
 
@@ -365,9 +365,13 @@ namespace InstagramData.Core
 
                 foreach (var comment in comments)
                 {
-                    var tags = comment.FindElements(By.TagName("a")).Where(m => m.GetAttribute("href").Contains("/explore/tags")).ToList();
-                    var refs = comment.FindElements(By.TagName("a")).Where(m => !m.GetAttribute("href").Contains("/explore/tags")).ToList();
-                    Console.WriteLine("comment: {0}", comment.Text);
+                    var spanComment = comment.FindElement(By.TagName("span"));
+                    var commentName = comment.FindElement(By.CssSelector("h3 > a"));
+                    var Name = commentName.Text;
+
+                    var tags = spanComment.FindElements(By.TagName("a")).Where(m => m.GetAttribute("href").Contains("/explore/tags")).ToList();
+                    var refs = spanComment.FindElements(By.TagName("a")).Where(m => !m.GetAttribute("href").Contains("/explore/tags")).ToList();
+                    Console.WriteLine("comment: {0}", spanComment.Text);
 
 
                     var refsComment = new List<ReferenceProfile>();
@@ -394,6 +398,7 @@ namespace InstagramData.Core
 
                     post.Comments.Add(new Comment
                     {
+                        Name = Name,
                         Refs = refsComment,
                         Tags = tagsComment,
                         Text = comment.Text
