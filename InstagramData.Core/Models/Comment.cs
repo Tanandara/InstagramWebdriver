@@ -8,6 +8,7 @@ namespace InstagramData.Core.Models
 {
     public class Comment
     {
+        public string Name { get; set; }
         public string Text { get; set; }
         public List<Tag> Tags { get; set; }
         public List<ReferenceProfile> Refs { get; set; }
