@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace InstagramData.Console
@@ -18,28 +19,25 @@ namespace InstagramData.Console
             {
                 var instagramProfiles = new List<InstagramProfile>() {
 
-                new InstagramProfile("https://www.instagram.com/aofpongsak/","aof"),
-                //new InstagramProfile("https://www.instagram.com/bnk48/","BNK48"),
-                //new InstagramProfile("https://www.instagram.com/cherprang.bnk48official/","cherprang"),
+                new InstagramProfile("https://www.instagram.com/amyun.u/","amyun.u"),
             };
 
                 var userLogin = new User { Username = "", Password = "" };
 
-                var instagramController = new InstagramController(userLogin, instagramProfiles,0);
+                var instagramController = new InstagramController(userLogin, instagramProfiles, 0);
 
                 instagramController.Run();
+                
 
-                string aof = JsonConvert.SerializeObject(instagramProfiles[0]);
-                //string bnk48 = JsonConvert.SerializeObject(instagramProfiles[0]);
-                //string cherprang = JsonConvert.SerializeObject(instagramProfiles[1]);
 
-                File.AppendAllText("aof.json", aof, Encoding.UTF8);
-                //File.AppendAllText("cherprang.json", cherprang);
+                string amyJson = JsonConvert.SerializeObject(instagramProfiles[0]);
 
-                //var csvExport = new CSVExport(instagramProfiles[0]);
-                //csvExport.CreateGenaral();
-                //csvExport.CreateFollowing();
-                //csvExport.CreateMedia();
+                var fileName = string.Format("{0}.json", instagramProfiles[0].Name);
+
+                File.WriteAllText(fileName, amyJson, Encoding.UTF8);
+                
+
+                System.Console.WriteLine("Complete");
 
             }
             catch (Exception ex)
