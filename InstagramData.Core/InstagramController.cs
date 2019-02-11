@@ -34,10 +34,14 @@ namespace InstagramData.Core
                 Driver.Navigate().GoToUrl(ig.URL);
                 Thread.Sleep(1000);
                 GetFollowerAndFollowing(ig);
-                GetAllPostLink(ig);
-                GetAllPostDetail(ig);
+                //GetAllPostLink(ig);
+                //GetAllPostDetail(ig);
             }
+        }
 
+        public void Close()
+        {
+            this.Driver.Close();
         }
 
 
@@ -150,6 +154,12 @@ namespace InstagramData.Core
 
                 #region Following
                 var followingTag = selectedAllA.Where(a => a.GetAttribute("href").Contains("/following")).FirstOrDefault();
+                var followingCount = followersTag.FindElement(By.TagName("span")).Text;
+
+                igProfile.FollowingCount = int.Parse(followingCount.Replace(",", ""));
+
+                if (igProfile.FollowingCount > 1000) return;
+
                 followingTag.Click();
                 Thread.Sleep(2000);
 
@@ -193,7 +203,7 @@ namespace InstagramData.Core
                 var followings = followingsLinks.Where(f => f.GetAttribute("title") != "").ToList();
 
                 var followingsCount = followings.Count();
-                igProfile.FollowingCount = followingsCount;
+                //igProfile.FollowingCount = followingsCount;
                 Console.WriteLine("Following: {0}", followingsCount);
 
 
