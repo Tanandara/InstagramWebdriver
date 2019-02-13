@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace InstagramData.Core
 {
-    public class InstagramController
+    public partial class InstagramController
     {
         private readonly List<InstagramProfile> _instagramProfile;
         private readonly User _userLogin;
@@ -21,6 +21,13 @@ namespace InstagramData.Core
         public InstagramController(User userLogin, List<InstagramProfile> instagramProfiles, int scrollTimes = 5)
         {
             this._instagramProfile = instagramProfiles;
+            this._userLogin = userLogin;
+            this.Driver = new FirefoxDriver();
+            this._scrollTimes = scrollTimes;
+        }
+
+        public InstagramController(User userLogin, int scrollTimes = 5)
+        {
             this._userLogin = userLogin;
             this.Driver = new FirefoxDriver();
             this._scrollTimes = scrollTimes;
@@ -46,7 +53,7 @@ namespace InstagramData.Core
 
 
 
-        private void Login()
+        public void Login()
         {
             Driver.Url = "https://www.instagram.com/accounts/login/";
             Driver.Navigate();
@@ -76,6 +83,7 @@ namespace InstagramData.Core
                 Thread.Sleep(2000);
                 var selectedAllA = Driver.FindElements(By.CssSelector("a"));
                 var followersTag = selectedAllA.Where(a => a.GetAttribute("href").Contains("/followers")).FirstOrDefault();
+
                 var followerCount = followersTag.FindElement(By.TagName("span")).GetAttribute("title");
                 Console.WriteLine("Follower: {0}", followerCount);
 

@@ -48,6 +48,7 @@
     <Compile Include="CSVExport.cs" />
     <Compile Include="CSVExtentsion.cs" />
     <Compile Include="InstagramController.cs" />
+    <Compile Include="InstagramControllerV2.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Follower.cs" />
     <Compile Include="Models\Following.cs" />
