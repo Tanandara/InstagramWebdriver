@@ -19,26 +19,28 @@ namespace InstagramData.ReadData
                 var amyJson = File.ReadAllText("amyun.u.json");
 
                 var igAmy = JsonConvert.DeserializeObject<InstagramProfile>(amyJson);
+                
+                var userLogin = new User { Username = "", Password = "" };
 
+                var instagramController = new InstagramController(userLogin, 0);
+
+                instagramController.Login();
 
                 foreach (var following in igAmy.Followings)
                 {
-                    var fileName = string.Format("{0}.json", following.Name);
+                    var fileName = string.Format("{0}\\{1}.json", igAmy.Name, following.Name);
                     if (File.Exists(fileName)) continue;
 
-                    var ig = new List<InstagramProfile> { new InstagramProfile(following.URL, following.Name) };
+                    var ig = new InstagramProfile(following.URL, following.Name);
 
-                    var userLogin = new User { Username = "", Password = "" };
+                    instagramController.RunV2(ig);
 
-                    var instagramController = new InstagramController(userLogin, ig, 0);
+                    var igJson = JsonConvert.SerializeObject(ig);
 
-                    instagramController.Run();
-
-                    var igJson = JsonConvert.SerializeObject(ig[0]);
+                    if (!Directory.Exists(igAmy.Name)) Directory.CreateDirectory(igAmy.Name);
 
                     File.WriteAllText(fileName, igJson, Encoding.UTF8);
 
-                    instagramController.Close();
                 }
 
                 Console.WriteLine("Complete");
@@ -49,7 +51,7 @@ namespace InstagramData.ReadData
 
                 Console.WriteLine(errorMessage);
 
-                File.AppendAllText("Error.txt", string.Format("{0}{1}",Environment.NewLine,errorMessage));
+                File.AppendAllText("Error.txt", string.Format("{0}{1}", Environment.NewLine, errorMessage));
             }
         }
     }
