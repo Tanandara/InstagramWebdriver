@@ -150,7 +150,7 @@ namespace InstagramData.Core
                 for (;;)
                 {
                     ((IJavaScriptExecutor)Driver).ExecuteScript("document.querySelector('.isgrP').scrollTo(0, document.querySelector('.isgrP').scrollHeight )");
-                    Thread.Sleep(100);
+                    Thread.Sleep(500);
                     var currentHeight = (long)((IJavaScriptExecutor)Driver).ExecuteScript("return document.querySelector('.isgrP').scrollHeight;");
 
                     if (flagFollowing == currentHeight)
@@ -162,7 +162,7 @@ namespace InstagramData.Core
                         flagFollowing = currentHeight;
                     }
 
-                    Thread.Sleep(500);
+                    Thread.Sleep(1500);
                 }
 
 

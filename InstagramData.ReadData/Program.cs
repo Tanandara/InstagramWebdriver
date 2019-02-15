@@ -19,17 +19,18 @@ namespace InstagramData.ReadData
                 var amyJson = File.ReadAllText("amyun.u.json");
 
                 var igAmy = JsonConvert.DeserializeObject<InstagramProfile>(amyJson);
-                
+
+
                 var userLogin = new User { Username = "", Password = "" };
-
-                var instagramController = new InstagramController(userLogin, 0);
-
-                instagramController.Login();
 
                 foreach (var following in igAmy.Followings)
                 {
                     var fileName = string.Format("{0}\\{1}.json", igAmy.Name, following.Name);
                     if (File.Exists(fileName)) continue;
+
+                    var instagramController = new InstagramController(userLogin, 0);
+
+                    instagramController.Login();
 
                     var ig = new InstagramProfile(following.URL, following.Name);
 
@@ -40,6 +41,8 @@ namespace InstagramData.ReadData
                     if (!Directory.Exists(igAmy.Name)) Directory.CreateDirectory(igAmy.Name);
 
                     File.WriteAllText(fileName, igJson, Encoding.UTF8);
+
+                    instagramController.Close();
 
                 }
 
