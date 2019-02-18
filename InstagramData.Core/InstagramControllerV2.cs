@@ -31,16 +31,19 @@ namespace InstagramData.Core
                  + public && following <1000
                  */
 
+                try
+                {
+                    //private account
+                    var privateAccountElement = Driver.FindElement(By.CssSelector(".rkEop"));
+                    if (privateAccountElement != null) return;
+                }
+                catch { }
+
                 Thread.Sleep(2000);
                 var selectedAllA = Driver.FindElements(By.CssSelector("a"));
                 var followersTag = selectedAllA.Where(a => a.GetAttribute("href").Contains("/followers")).FirstOrDefault();
 
-                //private account
-                if (followersTag == null)
-                {
-                    return;
-                }
-
+                
                 var followerCount = followersTag.FindElement(By.TagName("span")).GetAttribute("title");
                 Console.WriteLine("Follower: {0}", followerCount);
 
